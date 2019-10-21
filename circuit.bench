@@ -1,0 +1,41 @@
+# adder
+# 6 inputs
+# 4 outputs
+
+# INPUTS:
+INPUT(A0)
+INPUT(A1)
+INPUT(A2)
+INPUT(B0)
+INPUT(B1)
+INPUT(B2)
+
+# OUTPUTS:
+OUTPUT(S0)
+OUTPUT(S1)
+OUTPUT(S2)
+OUTPUT(S3)
+
+# GATES:
+# FULL ADDER 0
+# OUTPUT: S0, C0
+S0 = XOR(A0, B0)
+b0 = AND(A0, B0)
+# AND(b0) => b0
+C0 = AND(b0)
+
+# FULL ADDER 1
+a1 = XOR(A1, B1)
+b1 = AND(A1, B1)
+# C0 carry from ADDER 0
+S1 = XOR(a1, C0)
+d1 = AND(a1, C0)
+C1 = OR(b1, d1)
+
+# FULL ADDER 2
+a2 = XOR(A2, B2)
+b2 = AND(A2, B2)
+# C1 = carry from adder 1
+S2 = XOR(a2, C1)
+d2 = AND(a2, C1)
+S3 = OR(b2, d2)
