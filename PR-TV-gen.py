@@ -79,6 +79,8 @@ def TestVector_A(inputSize):
 
 # def TestVector_D(inputSize):
 
+
+# Test Vector E --> Multiple 8 bit LFSRS
 def TestVector_E(inputSize, startSeed):
 
     vectorList = []     #list of Vectors 0-255
@@ -118,7 +120,7 @@ def TestVector_E(inputSize, startSeed):
 def main():
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
     inputSize = 0
-    seedVal = 0
+    seedVal = 1
 #User interface for reading in file
     while True:
         cktFile = "circuit.bench"
@@ -136,18 +138,18 @@ def main():
                 break
 
     while True:
-        print("\n Use 0 as start seed? Otherwise enter desired starting seed integer, 0-255: ")
+        print("\n Use 1 as start seed? Otherwise enter desired starting seed integer, 1-255: ")
         userInput = input()
         if userInput =="":
             print(" \n Your Start seed is: ", seedVal)
             break
         else: 
             seedVal = int(userInput)
-            if(seedVal >= 0 & seedVal <= 255):
+            if(seedVal >= 1 & seedVal <= 255):
                 print("\n Your Start Seed is:", hex(int(userInput)))
                 break
             else:
-                print("\n Integer Value not Valid. Enter a valid integer, 0-255")
+                print("\n Integer Value not Valid. Enter a valid integer, 1-255")
 
     #Prereqs for other functions
 
@@ -156,8 +158,6 @@ def main():
 
     TestVector_A(inputSize)
     TestVector_E(inputSize, seedVal)
-    
-    print("the output is:", LFSR_234(128))
 
 
 if __name__ == "__main__":
