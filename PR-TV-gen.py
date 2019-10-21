@@ -60,24 +60,124 @@ def inputSizeFinder(circuit):
 
     return inputCtr
 
-def TestVector_A(inputSize):
-
-    testVector = 0 #Vector thats being created
+def TestVector_A(inputSize, startSeed):
+    outVect = ''        #output vector at each line
     outputName = "TV_A.txt"
+
     outputFile = open(outputName,"w")
-    inputSize = str(inputSize)
-
+    #we have to deduce the number of seeds based on the inputs size and 8bit seed size
+    numSeeds = math.ceil(inputSize / 8)
     for x in range(255):
-        testVector = format(x, '0'+ inputSize + 'b')
+        outVect = format(0, '0'+str(inputSize) + 'b') + format(startSeed, '08b')[::-1]
+        startSeed += 1
+        outVect = outVect[::-1]
+        #Cuts string to size of the input
+        outVect = outVect[0:inputSize]
+        outVect = outVect[::-1]
 
-        #reverses the string for testing purposes
-        outputFile.write(testVector[::-1] + '\n')
+        outputFile.write(outVect + '\n')
+        outVect = ''
 
-# def TestVector_B(inputSize):
-    
-# def TestVector_C(inputSize):
+#multiple 8-bit counters
+def TestVector_B(inputSize, startSeed):
+    vectorList = []     #list of Vectors 0-255
+    newSeed = 0         #next seed vector in sequence
+    outVect = ''        #output vector at each line
+    outputName = "TV_B.txt"
 
-# def TestVector_D(inputSize):
+    outputFile = open(outputName,"w")
+    #we have to deduce the number of seeds based on the inputs size and 8bit seed size
+    numSeeds = math.ceil(inputSize / 8)
+
+    #append the start seed to the list
+    vectorList.append(startSeed)
+    for x in range(255):
+        #The first seed passed to the LFSR is startseed
+        newSeed = vectorList[x]
+        startSeed +=1
+        #We then append the next seed into the next line of the vector list
+        vectorList.append(startSeed)
+
+        for x in range(numSeeds):
+            outVect = outVect + format(newSeed, '08b')
+
+        #Cuts string to size of the input
+        outVect = outVect[0:inputSize]
+
+        #Reverses string so output vector is from s[n], s[n-1], s[s-2] ... s[0]
+        outVect = outVect[::-1]
+
+        #Writes and resets for the next output
+        outputFile.write(outVect + '\n')
+        outVect = ''
+
+
+
+def TestVector_C(inputSize, startSeed):
+    vectorList = []     #list of Vectors 0-255
+    newSeed = 0         #next seed vector in sequence
+    outVect = ''        #output vector at each line
+    outputName = "TV_C.txt"
+
+    outputFile = open(outputName,"w")
+    #we have to deduce the number of seeds based on the inputs size and 8bit seed size
+    numSeeds = math.ceil(inputSize / 8)
+
+    #append the start seed to the list
+    vectorList.append(startSeed)
+    for x in range(255):
+        #The first seed passed to the LFSR is startseed
+        newSeed = vectorList[x]
+        startSeed +=1
+        #We then append the next seed into the next line of the vector list
+        vectorList.append(startSeed)
+
+        for x in range(numSeeds):
+            outVect = outVect + format(newSeed, '08b')
+            newSeed += 1
+
+        #Cuts string to size of the input
+        outVect = outVect[0:inputSize]
+
+        #Reverses string so output vector is from s[n], s[n-1], s[s-2] ... s[0]
+        outVect = outVect[::-1]
+
+        #Writes and resets for the next output
+        outputFile.write(outVect + '\n')
+        outVect = ''
+
+
+def TestVector_D(inputSize, startSeed):
+    vectorList = []     #list of Vectors 0-255
+    newSeed = 0         #next seed vector in sequence
+    outVect = ''        #output vector at each line
+    outputName = "TV_D.txt"
+
+    outputFile = open(outputName,"w")
+    #we have to deduce the number of seeds based on the inputs size and 8bit seed size
+    numSeeds = math.ceil(inputSize / 8)
+
+    #append the start seed to the list
+    vectorList.append(startSeed)
+    for x in range(255):
+        #The first seed passed to the LFSR is startseed
+        newSeed = vectorList[x]
+
+        #We then append the next seed into the next line of the vector list
+        vectorList.append(LFSR_234(newSeed))
+
+        for x in range(numSeeds):
+            outVect = outVect + format(newSeed, '08b')
+
+        #Cuts string to size of the input
+        outVect = outVect[0:inputSize]
+
+        #Reverses string so output vector is from s[n], s[n-1], s[s-2] ... s[0]
+        outVect = outVect[::-1]
+
+        #Writes and resets for the next output
+        outputFile.write(outVect + '\n')
+        outVect = ''
 
 
 # Test Vector E --> Multiple 8 bit LFSRS
@@ -120,7 +220,7 @@ def TestVector_E(inputSize, startSeed):
 def main():
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
     inputSize = 0
-    seedVal = 1
+    seedVal = 0
 #User interface for reading in file
     while True:
         cktFile = "circuit.bench"
@@ -138,14 +238,14 @@ def main():
                 break
 
     while True:
-        print("\n Use 1 as start seed? Otherwise enter desired starting seed integer, 1-255: ")
+        print("\n Use 0 as start seed? Otherwise enter desired starting seed integer, 0-255: ")
         userInput = input()
         if userInput =="":
             print(" \n Your Start seed is: ", seedVal)
             break
         else: 
             seedVal = int(userInput)
-            if(seedVal >= 1 & seedVal <= 255):
+            if(seedVal >= 0 & seedVal <= 255):
                 print("\n Your Start Seed is:", hex(int(userInput)))
                 break
             else:
@@ -155,9 +255,11 @@ def main():
 
     inputSize = inputSizeFinder(cktFile)
 
-
-    TestVector_A(inputSize)
+    TestVector_A(inputSize, seedVal)
+    TestVector_B(inputSize, seedVal)
     TestVector_E(inputSize, seedVal)
+    TestVector_D(inputSize, seedVal)
+    TestVector_C(inputSize, seedVal)
 
 
 if __name__ == "__main__":
