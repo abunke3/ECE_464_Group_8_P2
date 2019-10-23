@@ -45,7 +45,7 @@ def TestVector_A(inputSize, startSeed):
     outputName = "TV_A.txt"
 
     outputFile = open(outputName,"w")
-    outputFile.write("#" + str(startSeed) + "\n")
+    outputFile.write("#seed: " + str(startSeed) + "\n")
     #we have to deduce the number of seeds based on the inputs size and 8bit seed size
     numSeeds = math.ceil(inputSize / 8)
     for x in range(255):
@@ -67,7 +67,7 @@ def TestVector_B(inputSize, startSeed):
     outputName = "TV_B.txt"
 
     outputFile = open(outputName,"w")
-    outputFile.write("#" + str(startSeed) + "\n")
+    outputFile.write("#seed: " + str(startSeed) + "\n")
     #we have to deduce the number of seeds based on the inputs size and 8bit seed size
     numSeeds = math.ceil(inputSize / 8)
 
@@ -100,7 +100,7 @@ def TestVector_C(inputSize, startSeed):
     outputName = "TV_C.txt"
 
     outputFile = open(outputName,"w")
-    outputFile.write("#" + str(startSeed) + "\n")
+    outputFile.write("#seed: " + str(startSeed) + "\n")
     #we have to deduce the number of seeds based on the inputs size and 8bit seed size
     numSeeds = math.ceil(inputSize / 8)
 
@@ -135,7 +135,7 @@ def TestVector_D(inputSize, startSeed):
     outputName = "TV_D.txt"
 
     outputFile = open(outputName,"w")
-    outputFile.write("#" + str(startSeed) + "\n")
+    outputFile.write("#seed: " + str(startSeed) + "\n")
     #we have to deduce the number of seeds based on the inputs size and 8bit seed size
     numSeeds = math.ceil(inputSize / 8)
 
@@ -171,7 +171,7 @@ def TestVector_E(inputSize, startSeed):
     outputName = "TV_E.txt"
 
     outputFile = open(outputName,"w")
-    outputFile.write("#" + str(startSeed) + "\n")
+    outputFile.write("#seed: " + str(startSeed) + "\n")
     #we have to deduce the number of seeds based on the inputs size and 8bit seed size
     numSeeds = math.ceil(inputSize / 8)
 

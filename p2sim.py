@@ -520,7 +520,7 @@ def main():
         for x in inputFiles:
             seedVal = x.readline()
 
-        seedVal = seedVal.replace("#", "")
+        seedVal = seedVal.replace("#seed: ", "")
         seedVal = format(int(seedVal), "08b")
 
         totalFaults = len(faults)
