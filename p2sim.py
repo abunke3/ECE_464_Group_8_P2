@@ -31,7 +31,7 @@ def getFaults(faultFile):
         
         line = line.replace("\n", "")
         data = []
-        for x in range(5):
+        for _ in range(5):
             data.append(False)
         data.append(line.split("-"))
 
@@ -418,8 +418,9 @@ def main():
     # **************************************************************************************************************** #
     # NOTE: UI code; Does not contain anything about the actual simulation
 
+    #NOTE: Not sure what this is used for says unused
     # Used for file access
-    script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
+    #script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
 
     
 
@@ -533,9 +534,9 @@ def main():
 
         # Runs the simulator for each line of the input file
         for batch in range(25):
-            print("Starting Batch: " + str(batch +1) + "...", end = "")
+            print("Batch: " + str(batch +1) + "...", end = "")
             for fileIndex in range(5):
-                for tvIndex in range(batchSize):
+                for _ in range(batchSize):
                     
                     #reads the newline
                     line = inputFiles[fileIndex].readline()
