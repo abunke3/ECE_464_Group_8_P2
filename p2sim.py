@@ -639,7 +639,7 @@ def main():
                             circuit[key][2] = False
                             circuit[key][3] = 'U'
 
-            writer.writerow([batch + 1, totalDetected[0]/totalFaults, totalDetected[1]/totalFaults, totalDetected[2]/totalFaults, totalDetected[3]/totalFaults, totalDetected[4]/totalFaults])
+            writer.writerow([batch + 1, totalDetected[0]/totalFaults*100, totalDetected[1]/totalFaults*100, totalDetected[2]/totalFaults*100, totalDetected[3]/totalFaults*100, totalDetected[4]/totalFaults*100])
             print("done")
 
         for x in inputFiles:
