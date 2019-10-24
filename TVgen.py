@@ -47,9 +47,9 @@ def TestVector_A(inputSize, startSeed):
     outputFile = open(outputName,"w")
     outputFile.write("#seed: " + str(startSeed) + "\n")
     #we have to deduce the number of seeds based on the inputs size and 8bit seed size
-    numSeeds = math.ceil(inputSize / 8)
-    for x in range(255):
-        outVect = format(0, '0'+str(inputSize) + 'b') + format(startSeed, '08b')[::-1]
+    #numSeeds = math.ceil(inputSize / 8)
+    for _ in range(255):
+        outVect = format(0, '0'+str(inputSize) + 'b') + format(startSeed, '08b')
         startSeed += 1
         outVect = outVect[::-1]
         #Cuts string to size of the input
@@ -58,6 +58,7 @@ def TestVector_A(inputSize, startSeed):
 
         outputFile.write(outVect + '\n')
         outVect = ''
+
 
 #multiple 8-bit counters
 def TestVector_B(inputSize, startSeed):
@@ -81,7 +82,7 @@ def TestVector_B(inputSize, startSeed):
         vectorList.append(startSeed)
 
         for x in range(numSeeds):
-            outVect = outVect + format(newSeed, '08b')
+            outVect = outVect + format(newSeed, '08b')[::-1]
 
         #Cuts string to size of the input
         outVect = outVect[0:inputSize]
@@ -114,7 +115,7 @@ def TestVector_C(inputSize, startSeed):
         vectorList.append(startSeed)
 
         for x in range(numSeeds):
-            outVect = outVect + format(newSeed, '08b')
+            outVect = outVect + format(newSeed, '08b')[::-1]
             newSeed += 1
 
         #Cuts string to size of the input
@@ -149,7 +150,7 @@ def TestVector_D(inputSize, startSeed):
         vectorList.append(LFSR_234(newSeed))
 
         for x in range(numSeeds):
-            outVect = outVect + format(newSeed, '08b')
+            outVect = outVect + format(newSeed, '08b')[::-1]
 
         #Cuts string to size of the input
         outVect = outVect[0:inputSize]
@@ -185,7 +186,7 @@ def TestVector_E(inputSize, startSeed):
         vectorList.append(LFSR_234(newSeed))
 
         for x in range(numSeeds):
-            outVect = outVect + format(newSeed, '08b')
+            outVect = outVect + format(newSeed, '08b')[::-1]
             newSeed = LFSR_234(newSeed)
 
         #Cuts string to size of the input
