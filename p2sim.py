@@ -1,6 +1,7 @@
 from __future__ import print_function
 import copy
 import os
+import subprocess
 import csv
 from TVgen import TestVector_A, TestVector_B, TestVector_C, TestVector_D, TestVector_E 
 
@@ -412,6 +413,11 @@ def basic_sim(circuit):
     return circuit
 
 
+def plot():
+    plotProcess = subprocess.Popen("gnuplot p2plot.gpl", shell = True)
+    os.waitpid(plotProcess.pid, 0)
+
+
 # -------------------------------------------------------------------------------------------------------------------- #
 # FUNCTION: Main Function
 def main():
@@ -647,7 +653,8 @@ def main():
         csvFile.close()
 
         print("\nDone.")
-    #exit()
+        
+        plot()
 
 
 if __name__ == "__main__":
